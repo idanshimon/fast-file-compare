@@ -26,7 +26,7 @@ TOTAL_PARTS_SIZE = 5*GB
 PART_SIZE = TOTAL_PARTS_SIZE//TOTAL_PARTS
 
 def usage():
-	print('%s [original_file] [compare_file]' % sys.argv[0])
+	print('%s [original file path] [destination file path]' % sys.argv[0])
 
 def compute_hash(fpath, index=0, chunk_size=None):
 	'''Compute hash for file path
@@ -42,9 +42,15 @@ def compute_hash(fpath, index=0, chunk_size=None):
 		return (index, hashlib.new('md4', data).hexdigest())
 
 def get_hash_small_file(fpath):
+	'''calc hash for smaller file types, no need for multiprocessing, directly calls the compute_hash method'''
 	return [compute_hash(fpath)]
 
 def multi_hash(fpath):
+	'''calculate the hash and return a list of ((index, hash) ...]
+	each item in the list describes the following
+	index - offset to raw data in the file descriptor
+	hash - hexstring of the hash (See HASH_TYPE)
+	'''
 	start_time = time.time()
 
 	fsize = os.path.getsize(fpath)
@@ -59,7 +65,7 @@ def multi_hash(fpath):
 		for i in range(0, fsize, PART_SIZE):
 			params.append((fpath, i, PART_SIZE, ))
 		results = p.starmap(compute_hash, params)
-		results.sort(key=lambda x:x[0]) # each item looks like this [(index, hash) ... ] i.e. [(0, 'f6a7fc41c88634c4232d9d76301bf429'), (1, 'dksjalkdjsalkdjlksjd...') ..]
+		results.sort(key=lambda x:x[0]) # each item looks like this [(index, hash) ... ] i.e. [(0, 'f6a7fc41c88634c4232d9d76301bf429'), (1024, 'dksjalkdjsalkdjlksjd...') ..]
 		sorted_results = [i[1] for i in results]
 		end_time = time.time()
 		logging.debug('Compute hash for %s Took %.6f seconds (Size:%d)' % (fpath, end_time-start_time, fsize))
@@ -104,9 +110,9 @@ def main():
 	end_time = time.time()
 	logging.info('Compare Took %.6f seconds' % (end_time-start_time))
 	if files_equal:
-		logging.info('All Good!')
+		logging.info('Files are identical')
 	else:
-		logging.error('Error: Files are not equal')
+		logging.error('Error: Files are not identical')
 
 if __name__ == '__main__':
 	multiprocessing.freeze_support()
