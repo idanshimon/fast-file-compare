@@ -75,6 +75,9 @@ def is_identicle(src_file, dest_file):
 			return True
 		else:
 			logging.error('Error: Files content is not the same')
+			logging.error("src file hash data:\n%s" % s1)
+			logging.error("dest file hash data:\n%s" % s2)
+
 	else:
 		logging.error('Error: Files are different sizes')
 		return False
@@ -106,6 +109,7 @@ def main():
 		logging.error('Error: Files are not equal')
 
 if __name__ == '__main__':
+	multiprocessing.freeze_support()
 	try:
 		main()
 	except KeyboardInterrupt:
