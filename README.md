@@ -77,7 +77,7 @@ TotalMilliseconds : 14036.2998
 ### Fast Compare
 **Compute hash for 5GB_FILE Took 4.439167 seconds (Size:5076332544)**
 
-Fast compare - Single file result shows an improvement of over 50% ! rather than using the traditional tools like md4sum etc.
+Fast compare - Single file result shows an improvement of over 50% ! compared to traditional tools like md4sum etc.
 ```bash
 >python fast_compare.py 5GB_FILE 5GB_FILE
 CPU COUNT: 4
