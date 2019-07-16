@@ -72,7 +72,7 @@ def multi_hash(fpath):
 
 		return sorted_results
 	
-def is_identicle(src_file, dest_file):
+def is_identical(src_file, dest_file):
 	'''Compare between two files in an effcient way'''
 	if os.path.getsize(src_file) == os.path.getsize(dest_file):
 		s1 = multi_hash(src_file)
@@ -105,7 +105,7 @@ def main():
 	logging.debug('CPU COUNT: %d' % multiprocessing.cpu_count())
 	start_time = time.time()
 	
-	files_equal = is_identicle(src_file, dest_file)
+	files_equal = is_identical(src_file, dest_file)
 
 	end_time = time.time()
 	logging.info('Compare Took %.6f seconds' % (end_time-start_time))
