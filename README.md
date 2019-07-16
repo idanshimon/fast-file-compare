@@ -64,11 +64,12 @@ Error: Files are not equal
 
 ## Benchmarks
 ### Other Checksum Tools (Single File)
+```powershell
 PS C:\tmp> Measure-Command {.\ed2ksum64.exe "5GB_FILE"} | findstr 'TotalMilliseconds'                                   TotalMilliseconds : 10063.4238
 PS C:\tmp> Measure-Command {.\md5sum64.exe "5GB_FILE"} | findstr 'TotalMilliseconds'                                    TotalMilliseconds : 13034.5479
 PS C:\tmp> Measure-Command {.\md4sum64.exe "5GB_FILE"} | findstr 'TotalMilliseconds'                                    TotalMilliseconds : 9225.0143
 PS C:\tmp> Measure-Command {.\crc32sum64.exe "5GB_FILE"} | findstr 'TotalMilliseconds'                                  TotalMilliseconds : 14036.2998
-
+```
 ### Fast Compare
 **Compute hash for 5GB_FILE Took 4.439167 seconds (Size:5076332544)**
 
