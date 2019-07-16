@@ -6,6 +6,11 @@ hash based file compare adapted for processing big files, uses multiprocessing f
 Code is optimized to work with multiprocessing
 Fast compare optimize usage for RAM and CPU cores depending on the file size in order not to exhoust the system resources.
 
+## Configuration 
+You may configure the hashing algorithm that is used to compare the files / chunks 
+
+the default is md4
+
 ## How to Run
 ```bash
 >python fast_compare.py 5GB_FILE 5GB_FILE
