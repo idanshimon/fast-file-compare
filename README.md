@@ -61,3 +61,29 @@ dest file hash data:
 Compare Took 0.044446 seconds
 Error: Files are not equal
 ```
+
+## Benchmarks
+### Other Checksum Tools (Single File)
+PS C:\tmp> Measure-Command {.\ed2ksum64.exe "5GB_FILE"} | findstr 'TotalMilliseconds'                                   TotalMilliseconds : 10063.4238
+PS C:\tmp> Measure-Command {.\md5sum64.exe "5GB_FILE"} | findstr 'TotalMilliseconds'                                    TotalMilliseconds : 13034.5479
+PS C:\tmp> Measure-Command {.\md4sum64.exe "5GB_FILE"} | findstr 'TotalMilliseconds'                                    TotalMilliseconds : 9225.0143
+PS C:\tmp> Measure-Command {.\crc32sum64.exe "5GB_FILE"} | findstr 'TotalMilliseconds'                                  TotalMilliseconds : 14036.2998
+
+### Fast Compare
+**Compute hash for 5GB_FILE Took 4.439167 seconds (Size:5076332544)**
+```bash
+>python fast_compare.py 5GB_FILE 5GB_FILE
+CPU COUNT: 4
+compute hash for file 5GB_FILE (starting index:0, size:1342177280)
+compute hash for file 5GB_FILE (starting index:1342177280, size:1342177280)
+compute hash for file 5GB_FILE (starting index:2684354560, size:1342177280)
+compute hash for file 5GB_FILE (starting index:4026531840, size:1342177280)
+Compute hash for 5GB_FILE Took 4.439167 seconds (Size:5076332544)
+compute hash for file 5GB_FILE (starting index:0, size:1342177280)
+compute hash for file 5GB_FILE (starting index:1342177280, size:1342177280)
+compute hash for file 5GB_FILE (starting index:2684354560, size:1342177280)
+compute hash for file 5GB_FILE (starting index:4026531840, size:1342177280)
+Compute hash for 5GB_FILE Took 5.604822 seconds (Size:5076332544)
+Compare Took 11.373840 seconds
+All Good!
+```
