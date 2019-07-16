@@ -41,3 +41,18 @@ Error: Files content is not the same
 Compare Took 0.003990 seconds
 Error: Files are not equal
 ```
+
+```bash
+# More errors
+>python fast_compare.py md5sum64.exe md4sum64.exe
+CPU COUNT: 4
+compute hash for file md5sum64.exe (starting index:0, size:None)
+compute hash for file md4sum64.exe (starting index:0, size:None)
+Error: Files content is not the same
+src file hash data:
+[(0, '4252fcfd67b793dd4f6720460e6600e5')]
+dest file hash data:
+[(0, '4989ee08179957531959ecb7d84b980a')]
+Compare Took 0.044446 seconds
+Error: Files are not equal
+```
